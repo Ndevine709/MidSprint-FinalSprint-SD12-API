@@ -19,9 +19,8 @@ public class City {
     private String state;
     private int population;
 
-    // Waiting on Airport to be done
-    // @OneToMany(mappedBy = "city", cascade = CascadeType.ALL)
-    // private List<Airport> airports;
+    @OneToMany(mappedBy = "city", cascade = CascadeType.ALL)
+    private List<Airport> airports;
 
     public City() {};
 
@@ -63,13 +62,12 @@ public class City {
         this.population = population;
     }
 
-    // A starter, will update one Airport is done
-    // public List<Airport> geAirports() {
-    //     return airports;
-    // }
+    public List<Airport> geAirports() {
+        return airports;
+    }
 
-    // public void setAirports(List<Airport> airports) {
-    //     this.airports = airports;
-    // }
+    public void setAirports(List<Airport> airports) {
+        this.airports = airports;
+    }
 
 }
