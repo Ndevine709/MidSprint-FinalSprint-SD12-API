@@ -1,17 +1,8 @@
 package com.airportAPI.rest.city;
-
-import java.util.List;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
-import com.airportAPI.rest.airport.Airport;
-import jakarta.persistence.CascadeType;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-
 @Entity
 public class City {
     @Id
@@ -22,10 +13,6 @@ public class City {
     private String name;
     private String state;
     private int population;
-
-    @OneToMany(mappedBy = "city", cascade = CascadeType.ALL)
-    @JsonIgnore
-    private List<Airport> airports;
 
     public City() {};
 
@@ -66,13 +53,4 @@ public class City {
     public void setPopulation(int population) {
         this.population = population;
     }
-
-    public List<Airport> getAirports() {
-        return airports;
-    }
-
-    public void setAirports(List<Airport> airports) {
-        this.airports = airports;
-    }
-
 }
