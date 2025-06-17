@@ -64,7 +64,7 @@ public class City {
         this.population = population;
     }
 
-    public List<Airport> geAirports() {
+    public List<Airport> getAirports() {
         return airports;
     }
 
