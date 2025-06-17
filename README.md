@@ -143,7 +143,7 @@ Access endpoints at `http://localhost:8080/api/airports`.
 - **GET** `/api/passengers`  
   Retrieve a list of all passenger records.
 
-- **POST** `/api/passengers`  
+- **POST** `/api/passenger`  
   Create a new passenger. Provide JSON body with `firstName`, `lastName`, and `passportNumber`.
 
 - **GET** `/api/passengers/{id}`  
@@ -157,7 +157,7 @@ Access endpoints at `http://localhost:8080/api/airports`.
 
 ### Aircraft
 
-- **GET** `/api/aircraft`  
+- **GET** `/api/aircrafts`  
   Retrieve a list of all aircraft records.
 
 - **POST** `/api/aircraft`  
