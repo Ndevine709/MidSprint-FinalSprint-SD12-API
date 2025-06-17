@@ -24,11 +24,10 @@ public class Airport {
     // Constructors
     public Airport() {}
 
-    // City city
-    public Airport(String name, String code){
+    public Airport(String name, String code, City city){
         this.name = name;
         this.code = code;
-        // this.city = city;
+        this.city = city;
     }
 
     // Getters and Setters
@@ -63,8 +62,4 @@ public class Airport {
     public void setCity(City city){
         this.city = city;
     }
-
-
-
-
 }
