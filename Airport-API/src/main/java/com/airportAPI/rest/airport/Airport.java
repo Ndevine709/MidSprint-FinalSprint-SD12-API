@@ -4,8 +4,9 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-// import jakarta.persistence.JoinColumn;
-// import jakarta.persistence.ManyToOne;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import com.airportAPI.rest.city.City;
 
 @Entity
 public class Airport {
@@ -16,9 +17,9 @@ public class Airport {
     private String name;
     private String code;
 
-    // @ManyToOne
-    // @JoinColumn(name = "id")
-    // private City city;
+    @ManyToOne
+    @JoinColumn(name = "id")
+    private City city;
 
     // Constructors
     public Airport() {}
@@ -55,13 +56,13 @@ public class Airport {
         this.code = code;
     }
 
-    // public City getCity(){
-    //     return city;
-    // }
+    public City getCity(){
+        return city;
+    }
 
-    // public void setCity(City city){
-    //     this.city = city;
-    // }
+    public void setCity(City city){
+        this.city = city;
+    }
 
 
 

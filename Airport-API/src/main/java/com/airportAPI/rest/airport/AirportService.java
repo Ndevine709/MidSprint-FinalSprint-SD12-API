@@ -1,5 +1,6 @@
 package com.airportAPI.rest.airport;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -11,7 +12,9 @@ public class AirportService {
     }
 
     public List<Airport> getAllAirports(){
-        return airportRepository.findAll();
+        List<Airport> airports = new ArrayList<>();
+        airportRepository.findAll().forEach(airports::add);
+        return airports;
     }
 
     public Airport createAirport(Airport airport){
@@ -20,9 +23,9 @@ public class AirportService {
 
     public Airport updateAirport(Long id, Airport airportDetails){
         return airportRepository.findById(id).map(airport -> {
-            airport.setName("Toronto Pearson Airport");
-            airport.setCode("YYZ");
-            // airport.setCity(null);
+            airport.getName();
+            airport.getCode();
+            airport.getCity();
             return airportRepository.save(airport);
         }).orElseThrow(()-> new RuntimeException("Airport not found"));
     }
@@ -31,3 +34,4 @@ public class AirportService {
         airportRepository.deleteById(id);
     }
 }
+
