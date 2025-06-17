@@ -7,6 +7,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import com.airportAPI.rest.city.City;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 public class Airport {
@@ -19,6 +20,7 @@ public class Airport {
 
     @ManyToOne
     @JoinColumn(name = "city_id")
+    @JsonIgnoreProperties("airports") // ignore city.airports to prevent the loop
     private City city;
 
     // Constructors
