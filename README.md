@@ -173,14 +173,6 @@ Access endpoints at `http://localhost:8080/api/airports`.
 - **DELETE** `/api/aircraft/{id}`  
   Delete an aircraft record.
 
-## Testing
-
-Run all unit and integration tests with:
-
-```bash
-mvn test
-```
-
 ## Contributing
 
 We welcome contributions! To submit improvements or fixes:
