@@ -1,4 +1,10 @@
 package com.airportAPI.rest.city;
 
-public interface CityRepository {
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface CityRepository extends CrudRepository<City, Long> {
+    City findByName(String name);
+    City findByState(String state);
 }
