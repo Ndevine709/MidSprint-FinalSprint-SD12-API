@@ -23,7 +23,6 @@ This project delivers a production-ready API that enables clients to create, rea
 - **Retrieve Cities**: Fetch all city records or query individual city by ID.
 - **Update Cities**: Modify existing city details safely.
 - **Delete Cities**: Remove city entries.
-- **City Validation**: Ensure city names and country codes are valid.
 
 ### Passengers
 
@@ -124,20 +123,20 @@ Access endpoints at `http://localhost:8080/api/airports`.
 
 ### Cities
 
-- **GET** `/api/cities`  
+- **GET** `/api/city`  
   Retrieve a list of all city records.
 
-- **POST** `/api/cities`  
+- **POST** `/api/city`  
   Create a new city. Provide JSON body with `name` and `country`.
 
-- **GET** `/api/cities/{id}`  
+- **GET** `/api/city/{id}`  
   Retrieve a specific city by its unique ID.
 
-- **PUT** `/api/cities/{id}`  
+- **PUT** `/api/city/{id}`  
   Update details of an existing city.
 
-- **DELETE** `/api/cities/{id}`  
-  Delete a city record.
+- **DELETE** `/api/city/{id}`  
+  Delete a city record
 
 ### Passengers
 
