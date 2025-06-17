@@ -7,6 +7,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
+import com.airportAPI.rest.airport.Airport;
+import jakarta.persistence.CascadeType;
 
 @Entity
 public class City {
