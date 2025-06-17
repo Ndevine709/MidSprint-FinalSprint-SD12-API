@@ -9,6 +9,8 @@ import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import com.airportAPI.rest.airport.Airport;
 import jakarta.persistence.CascadeType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 
 @Entity
 public class City {
@@ -22,6 +24,7 @@ public class City {
     private int population;
 
     @OneToMany(mappedBy = "city", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Airport> airports;
 
     public City() {};
@@ -64,7 +67,7 @@ public class City {
         this.population = population;
     }
 
-    public List<Airport> geAirports() {
+    public List<Airport> getAirports() {
         return airports;
     }
 
