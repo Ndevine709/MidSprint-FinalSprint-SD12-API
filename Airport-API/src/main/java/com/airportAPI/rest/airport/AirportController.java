@@ -22,6 +22,11 @@ public class AirportController {
         return airportService.getAllAirports();
     }
 
+    @GetMapping("/airport/city/{cityId}")
+    public List<Airport> getAirportsByCity(@PathVariable Long cityId) {
+        return airportService.getAirportsByCity(cityId);
+    }
+
     @PostMapping("/airport")
     public Airport createAirport(@RequestBody Airport airport){
         return airportService.createAirport(airport);
