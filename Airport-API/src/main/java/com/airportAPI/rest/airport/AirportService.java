@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import com.airportAPI.rest.city.City;
 import com.airportAPI.rest.city.CityRepository;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @Service
 public class AirportService {
@@ -20,6 +21,10 @@ public class AirportService {
         List<Airport> airports = new ArrayList<>();
         airportRepository.findAll().forEach(airports::add);
         return airports;
+    }
+
+    public List<Airport> getAirportsByCity(@PathVariable Long cityId){
+        return airportRepository.findByCityId(cityId);
     }
 
     public Airport createAirport(Airport airport){
