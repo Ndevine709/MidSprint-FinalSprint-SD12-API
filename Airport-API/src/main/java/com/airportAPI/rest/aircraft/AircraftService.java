@@ -2,7 +2,6 @@ package com.airportAPI.rest.aircraft;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import jakarta.persistence.EntityNotFoundException;
 
