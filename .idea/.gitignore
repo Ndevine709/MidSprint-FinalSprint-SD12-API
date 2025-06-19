@@ -1,5 +1,36 @@
-# Default ignored files
-/shelf/
-/workspace.xml
-# Environment-dependent path to Maven home directory
-/mavenHomeManager.xml
+# === Java / Maven ===
+/target/                          # compiled bytecode and build jars
+*.class                           # compiled classes
+*.jar
+*.war
+*.ear
+
+# === Spring Boot / Config ===
+/application.properties           # if you keep secrets here (or use .env)
+# application.yml  
+*.log                             # log files
+
+# === IDEs ===
+# VS Code
+.vscode/
+# IntelliJ IDEA
+*.iml
+.idea/
+*.iws
+*.ipr
+# Eclipse
+.project
+.classpath
+.settings/
+.factorypath
+
+# === OS Files ===
+.DS_Store
+Thumbs.db
+
+# === Miscellaneous ===
+mvnw
+mvnw.cmd
+.shelf/
+workspace.xml
+mavenHomeManager.xml

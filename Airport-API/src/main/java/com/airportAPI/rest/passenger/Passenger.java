@@ -1,5 +1,8 @@
 package com.airportAPI.rest.passenger;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -7,14 +10,15 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.SequenceGenerator;
-import java.util.Set;
 
 import java.util.Calendar;
 import java.util.HashSet;
+import java.util.Set;
 
 import com.airportAPI.rest.aircraft.Aircraft;
 
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 public class Passenger {
 
     @Id
@@ -31,7 +35,8 @@ public class Passenger {
     @JoinTable(name = "passenger_aircraft", joinColumns = @JoinColumn(name = "passenger_id"), inverseJoinColumns = @JoinColumn(name = "aircraft_id"))
     private Set<Aircraft> flights = new HashSet<>();
 
-    // getters & setters ---
+    // ————— Getters & Setters —————
+
     public long getId() {
         return id;
     }

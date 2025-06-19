@@ -1,5 +1,7 @@
 package com.airportAPI.rest.aircraft;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -9,6 +11,7 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -32,7 +35,7 @@ public class Aircraft {
     @Column(nullable = false)
     private int capacity;
 
-    // configures the airports an aircraft can use
+    // which airports this aircraft can use
     @ManyToMany
     @JoinTable(
       name = "aircraft_airport",
@@ -41,11 +44,13 @@ public class Aircraft {
     )
     private Set<Airport> airports = new HashSet<>();
 
-    // links the passengers who have flown on the aircraft
+    // we don’t want to serialize passengers here or you'll get nesting again
     @ManyToMany(mappedBy = "flights")
+    @JsonIgnore
     private Set<Passenger> passengers = new HashSet<>();
 
     protected Aircraft() {
+        // JPA
     }
 
     public Aircraft(String tailNumber, String model, int capacity) {
@@ -53,8 +58,6 @@ public class Aircraft {
         this.model      = model;
         this.capacity   = capacity;
     }
-
-    // getters and setters
 
     public Long getId() {
         return id;
@@ -92,6 +95,7 @@ public class Aircraft {
         this.airports = airports;
     }
 
+    // passengers will be ignored in JSON
     public Set<Passenger> getPassengers() {
         return passengers;
     }

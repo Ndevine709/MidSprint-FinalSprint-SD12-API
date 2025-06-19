@@ -3,6 +3,9 @@ package com.airportAPI.rest.passenger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.airportAPI.rest.aircraft.Aircraft;
+import com.airportAPI.rest.aircraft.AircraftRepository;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -11,6 +14,9 @@ public class PassengerService {
 
     @Autowired
     private PassengerRepository passengerRepository;
+
+    @Autowired
+    private AircraftRepository aircraftRepository;
 
     public List<Passenger> getAllPassengers() {
         return (List<Passenger>) passengerRepository.findAll();
@@ -33,15 +39,15 @@ public class PassengerService {
         Optional<Passenger> opt = passengerRepository.findById(id);
         if (opt.isPresent()) {
             Passenger p = opt.get();
-            
+
             p.setFirstName(updatedPassenger.getFirstName());
             p.setLastName(updatedPassenger.getLastName());
             p.setBirthday(updatedPassenger.getBirthday());
 
             p.setPhoneNumber(updatedPassenger.getPhoneNumber());
-            
+
             p.setFlights(updatedPassenger.getFlights());
-            
+
             return passengerRepository.save(p);
         }
         return null;
@@ -49,5 +55,16 @@ public class PassengerService {
 
     public void deletePassengerById(long id) {
         passengerRepository.deleteById(id);
+    }
+
+    public Passenger assignAircraft(long passengerId, long aircraftId) {
+        Passenger passenger = passengerRepository.findById(passengerId).orElse(null);
+        Aircraft aircraft = aircraftRepository.findById(aircraftId).orElse(null);
+
+        if (passenger != null && aircraft != null) {
+            passenger.getFlights().add(aircraft);
+            return passengerRepository.save(passenger);
+        }
+        return null;
     }
 }

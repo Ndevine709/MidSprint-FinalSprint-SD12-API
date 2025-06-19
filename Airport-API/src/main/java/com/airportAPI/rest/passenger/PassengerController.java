@@ -45,4 +45,15 @@ public class PassengerController {
     public void deletePassenger(@PathVariable long id) {
         passengerService.deletePassengerById(id);
     }
+
+    @PostMapping("/passenger/{passengerId}/aircraft/{aircraftId}")
+    public ResponseEntity<Passenger> assignPassengerToAircraft(
+        @PathVariable long passengerId,
+        @PathVariable long aircraftId) {
+        
+        Passenger updatedPassenger = passengerService.assignAircraft(passengerId, aircraftId);
+        return updatedPassenger != null
+            ? ResponseEntity.ok(updatedPassenger)
+            : ResponseEntity.notFound().build();
+    }
 }
