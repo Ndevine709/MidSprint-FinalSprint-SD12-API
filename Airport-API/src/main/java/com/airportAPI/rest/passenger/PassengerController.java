@@ -34,7 +34,8 @@ public class PassengerController {
     }
 
     @PutMapping("/passenger/{id}")
-    public ResponseEntity<Passenger> updatePassenger(@PathVariable long id, @RequestBody Passenger passenger) {
+    public ResponseEntity<Passenger> updatePassenger(@PathVariable long id,
+                                                     @RequestBody Passenger passenger) {
         Passenger updated = passengerService.updatePassenger(id, passenger);
         return (updated != null)
             ? ResponseEntity.ok(updated)
@@ -44,5 +45,16 @@ public class PassengerController {
     @DeleteMapping("/passenger/{id}")
     public void deletePassenger(@PathVariable long id) {
         passengerService.deletePassengerById(id);
+    }
+
+    @PostMapping("/passenger/{passengerId}/aircraft/{aircraftId}")
+    public ResponseEntity<Passenger> assignPassengerToAircraft(
+        @PathVariable long passengerId,
+        @PathVariable long aircraftId) {
+
+        Passenger updated = passengerService.assignAircraft(passengerId, aircraftId);
+        return (updated != null)
+            ? ResponseEntity.ok(updated)
+            : ResponseEntity.notFound().build();
     }
 }
