@@ -1,9 +1,16 @@
 package com.airportAPI.rest.aircraft;
 
 import java.util.List;
-import java.util.Optional;      
+import java.util.Optional;
+import java.util.stream.Collectors;
+
+import jakarta.persistence.EntityNotFoundException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.airportAPI.rest.airport.Airport;
+import com.airportAPI.rest.airport.AirportRepository;
 
 @Service
 public class AircraftService {
@@ -11,13 +18,15 @@ public class AircraftService {
     @Autowired
     private AircraftRepository aircraftRepository;
 
+    @Autowired
+    private AirportRepository airportRepository;
+
     public List<Aircraft> getAllAircraft() {
         return (List<Aircraft>) aircraftRepository.findAll();
     }
 
     public Aircraft getAircraftById(Long id) {
-        Optional<Aircraft> opt = aircraftRepository.findById(id);
-        return opt.orElse(null);
+        return aircraftRepository.findById(id).orElse(null);
     }
 
     public Aircraft createAircraft(Aircraft aircraft) {
@@ -40,5 +49,16 @@ public class AircraftService {
 
     public void deleteAircraftById(Long id) {
         aircraftRepository.deleteById(id);
+    }
+
+    public Aircraft addAirportToAircraft(Long aircraftId, Long airportId) {
+        Aircraft aircraft = aircraftRepository.findById(aircraftId)
+                .orElseThrow(() -> new EntityNotFoundException("Aircraft not found: " + aircraftId));
+        Airport airport = airportRepository.findById(airportId)
+                .orElseThrow(() -> new EntityNotFoundException("Airport not found: " + airportId));
+
+        aircraft.addAirport(airport);
+
+        return aircraftRepository.save(aircraft);
     }
 }
