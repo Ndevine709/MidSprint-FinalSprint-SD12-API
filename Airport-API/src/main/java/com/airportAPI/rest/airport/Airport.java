@@ -1,20 +1,20 @@
 package com.airportAPI.rest.airport;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.persistence.*;
+import java.util.HashSet;
+import java.util.Set;
 import com.airportAPI.rest.city.City;
-
+import com.airportAPI.rest.aircraft.Aircraft;
 
 @Entity
+@Table(name = "airport")
 public class Airport {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String name;
     private String code;
 
@@ -22,45 +22,66 @@ public class Airport {
     @JoinColumn(name = "city_id")
     private City city;
 
-    // Constructors
-    public Airport() {}
+    @ManyToMany(mappedBy = "airports")
+    @JsonIgnore 
+    private Set<Aircraft> aircraft = new HashSet<>();
 
-    public Airport(String name, String code, City city){
+    protected Airport() {
+    }
+
+    public Airport(String name, String code, City city) {
         this.name = name;
         this.code = code;
         this.city = city;
     }
 
-    // Getters and Setters
-    public Long getId(){
+    public Long getId() {
         return id;
     }
 
-    public void setId(Long id){
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public String getName(){
+    public String getName() {
         return name;
     }
 
-    public void setName(String name){
+    public void setName(String name) {
         this.name = name;
     }
 
-    public String getCode(){
+    public String getCode() {
         return code;
     }
 
-    public void setCode(String code){
+    public void setCode(String code) {
         this.code = code;
     }
 
-    public City getCity(){
+    public City getCity() {
         return city;
     }
 
-    public void setCity(City city){
+    public void setCity(City city) {
         this.city = city;
+    }
+
+    public Set<Aircraft> getAircraft() {
+        return aircraft;
+    }
+
+    public void setAircraft(Set<Aircraft> aircraft) {
+        this.aircraft = aircraft;
+    }
+
+    public void addAircraft(Aircraft ac) {
+        this.aircraft.add(ac);
+        ac.getAirports().add(this);
+    }
+
+    public void removeAircraft(Aircraft ac) {
+        this.aircraft.remove(ac);
+        ac.getAirports().remove(this);
     }
 }

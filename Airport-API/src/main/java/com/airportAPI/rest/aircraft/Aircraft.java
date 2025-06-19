@@ -1,20 +1,9 @@
 package com.airportAPI.rest.aircraft;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.Table;
-
+import jakarta.persistence.*;
 import java.util.HashSet;
 import java.util.Set;
-
 import com.airportAPI.rest.airport.Airport;
 import com.airportAPI.rest.passenger.Passenger;
 
@@ -36,7 +25,8 @@ public class Aircraft {
     private int capacity;
 
     @ManyToMany
-    @JoinTable(name = "aircraft_airport", joinColumns = @JoinColumn(name = "aircraft_id"), inverseJoinColumns = @JoinColumn(name = "airport_id"))
+    @JoinTable(name = "aircraft_airports", // ← make sure this matches your DB table
+            joinColumns = @JoinColumn(name = "aircraft_id"), inverseJoinColumns = @JoinColumn(name = "airport_id"))
     private Set<Airport> airports = new HashSet<>();
 
     @ManyToMany(mappedBy = "flights")
@@ -94,5 +84,15 @@ public class Aircraft {
 
     public void setPassengers(Set<Passenger> passengers) {
         this.passengers = passengers;
+    }
+
+    public void addAirport(Airport airport) {
+        this.airports.add(airport);
+        airport.getAircraft().add(this);
+    }
+
+    public void removeAirport(Airport airport) {
+        this.airports.remove(airport);
+        airport.getAircraft().remove(this);
     }
 }

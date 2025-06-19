@@ -3,6 +3,7 @@ package com.airportAPI.rest.aircraft;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import jakarta.persistence.EntityNotFoundException;
 
 import java.util.List;
 
@@ -31,16 +32,27 @@ public class AircraftController {
     @PutMapping("/aircraft/{id}")
     public ResponseEntity<Aircraft> updateAircraft(
             @PathVariable long id,
-            @RequestBody Aircraft aircraft
-    ) {
+            @RequestBody Aircraft aircraft) {
         Aircraft updated = aircraftService.updateAircraft(id, aircraft);
         return (updated != null)
-            ? ResponseEntity.ok(updated)
-            : ResponseEntity.notFound().build();
+                ? ResponseEntity.ok(updated)
+                : ResponseEntity.notFound().build();
     }
 
     @DeleteMapping("/aircraft/{id}")
     public void deleteAircraft(@PathVariable long id) {
         aircraftService.deleteAircraftById(id);
+    }
+
+    @PutMapping("/aircraft/{aircraftId}/airport/{airportId}")
+    public ResponseEntity<Aircraft> addAirportToAircraft(
+            @PathVariable Long aircraftId,
+            @PathVariable Long airportId) {
+        try {
+            Aircraft updated = aircraftService.addAirportToAircraft(aircraftId, airportId);
+            return ResponseEntity.ok(updated);
+        } catch (EntityNotFoundException ex) {
+            return ResponseEntity.notFound().build();
+        }
     }
 }
