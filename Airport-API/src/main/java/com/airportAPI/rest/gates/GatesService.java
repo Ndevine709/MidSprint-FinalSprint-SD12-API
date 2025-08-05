@@ -10,6 +10,7 @@ import com.airportAPI.rest.airport.Airport;
 import com.airportAPI.rest.airport.AirportRepository;
 import com.airportAPI.rest.aircraft.Aircraft;
 import com.airportAPI.rest.aircraft.AircraftRepository;
+import com.airportAPI.rest.flights.Flight;
 
 @Service
 public class GatesService {
@@ -88,5 +89,14 @@ public class GatesService {
     public List<Gates> getGatesWithAircraftByAirport(Long airportId, boolean isDeparture) {
         List<Gates> gates = gatesRepository.findByAirportIdAndIsDepartureGate(airportId, isDeparture);
         return gates;
+    }
+
+    public List<Flight> getFlightsByGate(Long gateId) {
+        Gates gate = gatesRepository.findById(gateId)
+            .orElseThrow(() -> new RuntimeException("Gate not found"));
+        List<Flight> flights = new ArrayList<>();
+        flights.addAll(gate.getDepartureFlights());
+        flights.addAll(gate.getArrivalFlights());
+        return flights;
     }
 }

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.HashSet;
 import java.util.Set;
 import com.airportAPI.rest.aircraft.Aircraft;
+import com.airportAPI.rest.flights.Flight;
 import jakarta.persistence.*;
 @Entity
 @Table(name = "airline")
@@ -22,6 +23,10 @@ public class Airline {
     @OneToMany(mappedBy = "airline", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
     private Set<Aircraft> aircraft = new HashSet<>();
+
+    @OneToMany(mappedBy = "airline", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
+    private Set<Flight> flights = new HashSet<>();
 
     public Airline () {}
 
@@ -70,5 +75,23 @@ public class Airline {
     public void removeAircraft(Aircraft aircraft) {
         this.aircraft.remove(aircraft);
         aircraft.setAirline(null);
+    }
+
+    public Set<Flight> getFlights() {
+        return flights;
+    }
+
+    public void setFlights(Set<Flight> flights) {
+        this.flights = flights;
+    }
+
+    public void addFlight(Flight flight) {
+        this.flights.add(flight);
+        flight.setAirline(this);
+    }
+
+    public void removeFlight(Flight flight) {
+        this.flights.remove(flight);
+        flight.setAirline(null);
     }
 }
