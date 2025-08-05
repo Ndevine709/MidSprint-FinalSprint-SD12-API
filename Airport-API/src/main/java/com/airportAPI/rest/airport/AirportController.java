@@ -1,5 +1,6 @@
 package com.airportAPI.rest.airport;
 
+import com.airportAPI.rest.aircraft.Aircraft;
 import com.airportAPI.rest.gates.Gates;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -21,6 +22,16 @@ public class AirportController {
     @GetMapping("/airport")
     public List<Airport> getAllAirports(){
         return airportService.getAllAirports();
+    }
+
+    @GetMapping("/airport/{id}")
+    public ResponseEntity<Airport> getAirportById(@PathVariable Long id) {
+        try {
+            Airport airport = airportService.getAirportById(id);
+            return ResponseEntity.ok(airport);
+        } catch (RuntimeException exception) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @GetMapping("/airport/city/{cityId}")
@@ -49,10 +60,16 @@ public class AirportController {
         return ResponseEntity.noContent().build();
     }
 
-    // Add these new endpoints
+    
     @GetMapping("/airport/{airportId}/gates")
     public List<Gates> getGatesByAirport(@PathVariable Long airportId) {
         return airportService.getGatesByAirport(airportId);
+    }
+
+    
+    @GetMapping("/airport/{airportId}/aircraft")
+    public List<Aircraft> getAircraftByAirport(@PathVariable Long airportId) {
+        return airportService.getAircraftByAirport(airportId);
     }
 
     @PostMapping("/airport/{airportId}/gates")

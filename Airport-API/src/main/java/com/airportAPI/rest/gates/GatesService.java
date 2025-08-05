@@ -45,6 +45,7 @@ public class GatesService {
             g.setGateNumber(updatedGates.getGateNumber());
             g.setTerminal(updatedGates.getTerminal());
             g.setAirport(updatedGates.getAirport());
+            g.setDepartureGate(updatedGates.isDepartureGate()); // Add this line
             return gatesRepository.save(g);
         }).orElse(null);
     }

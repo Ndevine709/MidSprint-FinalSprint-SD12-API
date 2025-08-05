@@ -8,23 +8,32 @@ import com.airportAPI.rest.city.CityRepository;
 import org.springframework.web.bind.annotation.PathVariable;
 import com.airportAPI.rest.gates.Gates;
 import com.airportAPI.rest.gates.GatesRepository;
+import com.airportAPI.rest.aircraft.Aircraft;
+import com.airportAPI.rest.aircraft.AircraftRepository;
 
 @Service
 public class AirportService {
     private final AirportRepository airportRepository;
     private final CityRepository cityRepository;
     private final GatesRepository gatesRepository;
+    private final AircraftRepository aircraftRepository;
 
-    public AirportService(AirportRepository airportRepository, CityRepository cityRepository, GatesRepository gatesRepository){
+    public AirportService(AirportRepository airportRepository, CityRepository cityRepository, GatesRepository gatesRepository, AircraftRepository aircraftRepository){
         this.airportRepository = airportRepository;
         this.cityRepository = cityRepository;
         this.gatesRepository = gatesRepository;
+        this.aircraftRepository = aircraftRepository;
     }
 
     public List<Airport> getAllAirports(){
         List<Airport> airports = new ArrayList<>();
         airportRepository.findAll().forEach(airports::add);
         return airports;
+    }
+
+    public Airport getAirportById(Long id) {
+        return airportRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Airport not found with ID: " + id));
     }
 
     public List<Airport> getAirportsByCity(@PathVariable Long cityId){
@@ -64,5 +73,11 @@ public class AirportService {
         Airport airport = airportRepository.findById(airportId).orElseThrow(() -> new RuntimeException("Airport not found with ID: " + airportId));
         gate.setAirport(airport);
         return gatesRepository.save(gate);
+    }
+
+    public List<Aircraft> getAircraftByAirport(Long airportId) {
+        Airport airport = airportRepository.findById(airportId)
+            .orElseThrow(() -> new RuntimeException("Airport not found with ID: " + airportId));
+        return new ArrayList<>(airport.getAircraft());
     }
 }
