@@ -80,4 +80,9 @@ public class AirportService {
             .orElseThrow(() -> new RuntimeException("Airport not found with ID: " + airportId));
         return new ArrayList<>(airport.getAircraft());
     }
+
+    public Aircraft getAircraftById(Long aircraftId) {
+        return aircraftRepository.findById(aircraftId)
+            .orElseThrow(() -> new RuntimeException("Aircraft not found with ID: " + aircraftId));
+    }
 }
