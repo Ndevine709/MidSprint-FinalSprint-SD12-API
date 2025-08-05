@@ -1,5 +1,9 @@
 package com.airportAPI.rest.airline;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.HashSet;
+import java.util.Set;
+import com.airportAPI.rest.aircraft.Aircraft;
 import jakarta.persistence.*;
 @Entity
 @Table(name = "airline")
@@ -14,6 +18,10 @@ public class Airline {
 
     @Column(nullable = false, unique = true)
     private String code; // Ex = AC for air canada
+
+    @OneToMany(mappedBy = "airline", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
+    private Set<Aircraft> aircraft = new HashSet<>();
 
     public Airline () {}
 
@@ -44,5 +52,23 @@ public class Airline {
 
     public void setCode(String code) {
         this.code = code;
+    }
+
+    public Set<Aircraft> getAircraft() {
+        return aircraft;
+    }
+
+    public void setAircraft(Set<Aircraft> aircraft) {
+        this.aircraft = aircraft;
+    }
+
+    public void addAircraft(Aircraft aircraft) {
+        this.aircraft.add(aircraft);
+        aircraft.setAirline(this);
+    }
+
+    public void removeAircraft(Aircraft aircraft) {
+        this.aircraft.remove(aircraft);
+        aircraft.setAirline(null);
     }
 }

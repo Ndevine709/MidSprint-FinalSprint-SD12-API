@@ -6,6 +6,7 @@ import java.util.HashSet;
 import java.util.Set;
 import com.airportAPI.rest.city.City;
 import com.airportAPI.rest.aircraft.Aircraft;
+import com.airportAPI.rest.gates.Gates;
 
 @Entity
 @Table(name = "airport")
@@ -25,6 +26,10 @@ public class Airport {
     @ManyToMany(mappedBy = "airports")
     @JsonIgnore 
     private Set<Aircraft> aircraft = new HashSet<>();
+
+    @OneToMany(mappedBy = "airport", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
+    private Set<Gates> gates = new HashSet<>();
 
     protected Airport() {
     }
@@ -83,5 +88,23 @@ public class Airport {
     public void removeAircraft(Aircraft ac) {
         this.aircraft.remove(ac);
         ac.getAirports().remove(this);
+    }
+
+    public Set<Gates> getGates() {
+        return gates;
+    }
+
+    public void setGates(Set<Gates> gates) {
+        this.gates = gates;
+    }
+
+    public void addGate(Gates gate) {
+        this.gates.add(gate);
+        gate.setAirport(this);
+    }
+
+    public void removeGate(Gates gate) {
+        this.gates.remove(gate);
+        gate.setAirport(null);
     }
 }

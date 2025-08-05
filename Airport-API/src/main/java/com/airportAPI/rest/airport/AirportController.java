@@ -1,5 +1,6 @@
 package com.airportAPI.rest.airport;
 
+import com.airportAPI.rest.gates.Gates;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -46,6 +47,17 @@ public class AirportController {
     public ResponseEntity<Void> deleteAirport(@PathVariable Long id){
         airportService.deleteAirport(id);
         return ResponseEntity.noContent().build();
+    }
+
+    // Add these new endpoints
+    @GetMapping("/airport/{airportId}/gates")
+    public List<Gates> getGatesByAirport(@PathVariable Long airportId) {
+        return airportService.getGatesByAirport(airportId);
+    }
+
+    @PostMapping("/airport/{airportId}/gates")
+    public Gates addGateToAirport(@PathVariable Long airportId, @RequestBody Gates gate) {
+        return airportService.addGateToAirport(airportId, gate);
     }
 
 }

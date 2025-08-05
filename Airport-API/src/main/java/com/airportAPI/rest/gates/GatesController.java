@@ -31,7 +31,7 @@ public class GatesController {
     }
 
     @PostMapping("/gates")
-    public Gates creatGates(@RequestBody Gates gates) {
+    public Gates createGates(@RequestBody Gates gates) {
         return gatesService.createGates(gates);
     }
 
@@ -44,5 +44,35 @@ public class GatesController {
     @DeleteMapping("/gates/{id}")
     public void deleteGates(@PathVariable long id) {
         gatesService.deleteGateById(id);
+    }
+
+    @GetMapping("/gates/airport/{airportId}/departures")
+    public List<Gates> getDepartureGates(@PathVariable Long airportId) {
+        return gatesService.getDepartureGates(airportId);
+    }
+
+    @GetMapping("/gates/airport/{airportId}/arrivals")
+    public List<Gates> getArrivalGates(@PathVariable Long airportId) {
+        return gatesService.getArrivalGates(airportId);
+    }
+
+    @PostMapping("/gates/{gateId}/aircraft/{aircraftId}")
+    public Gates assignAircraftToGate(@PathVariable Long gateId, @PathVariable Long aircraftId) {
+        return gatesService.assignAircraftToGate(gateId, aircraftId);
+    }
+
+    @DeleteMapping("/gates/{gateId}/aircraft")
+    public Gates removeAircraftFromGate(@PathVariable Long gateId) {
+        return gatesService.removeAircraftFromGate(gateId);
+    }
+
+    @GetMapping("/gates/airport/{airportId}/departures/with-aircraft")
+    public List<Gates> getDepartureGatesWithAircraft(@PathVariable Long airportId) {
+        return gatesService.getGatesWithAircraftByAirport(airportId, true);
+    }
+
+    @GetMapping("/gates/airport/{airportId}/arrivals/with-aircraft")
+    public List<Gates> getArrivalGatesWithAircraft(@PathVariable Long airportId) {
+        return gatesService.getGatesWithAircraftByAirport(airportId, false);
     }
 }

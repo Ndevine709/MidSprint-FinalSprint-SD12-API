@@ -6,6 +6,8 @@ import java.util.HashSet;
 import java.util.Set;
 import com.airportAPI.rest.airport.Airport;
 import com.airportAPI.rest.passenger.Passenger;
+import com.airportAPI.rest.gates.Gates;
+import com.airportAPI.rest.airline.Airline;
 
 @Entity
 @Table(name = "aircraft")
@@ -25,13 +27,22 @@ public class Aircraft {
     private int capacity;
 
     @ManyToMany
-    @JoinTable(name = "aircraft_airports", // ← make sure this matches your DB table
+    @JoinTable(name = "aircraft_airports", 
             joinColumns = @JoinColumn(name = "aircraft_id"), inverseJoinColumns = @JoinColumn(name = "airport_id"))
     private Set<Airport> airports = new HashSet<>();
 
     @ManyToMany(mappedBy = "flights")
     @JsonIgnore
     private Set<Passenger> passengers = new HashSet<>();
+
+    // Add this new relationship
+    @OneToMany(mappedBy = "aircraft", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
+    private Set<Gates> assignedGates = new HashSet<>();
+
+    @ManyToOne
+    @JoinColumn(name = "airline_id")
+    private Airline airline;
 
     protected Aircraft() {
     }
@@ -94,5 +105,31 @@ public class Aircraft {
     public void removeAirport(Airport airport) {
         this.airports.remove(airport);
         airport.getAircraft().remove(this);
+    }
+
+    public Set<Gates> getAssignedGates() {
+        return assignedGates;
+    }
+
+    public void setAssignedGates(Set<Gates> assignedGates) {
+        this.assignedGates = assignedGates;
+    }
+
+    public void addAssignedGate(Gates gate) {
+        this.assignedGates.add(gate);
+        gate.setAircraft(this);
+    }
+
+    public void removeAssignedGate(Gates gate) {
+        this.assignedGates.remove(gate);
+        gate.setAircraft(null);
+    }
+
+    public Airline getAirline() {
+        return airline;
+    }
+
+    public void setAirline(Airline airline) {
+        this.airline = airline;
     }
 }
