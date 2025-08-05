@@ -34,8 +34,7 @@ public class Aircraft {
     @ManyToMany(mappedBy = "flights")
     @JsonIgnore
     private Set<Passenger> passengers = new HashSet<>();
-
-    // Add this new relationship
+    
     @OneToMany(mappedBy = "aircraft", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
     private Set<Gates> assignedGates = new HashSet<>();
