@@ -76,7 +76,7 @@ public class Gates {
     }
 
     public void setDepartureGate(boolean departureGate) {
-        isDepartureGate = departureGate;
+        this.isDepartureGate = departureGate;
     }
 
     public Aircraft getAircraft() {
