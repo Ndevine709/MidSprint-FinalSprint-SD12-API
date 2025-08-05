@@ -6,15 +6,19 @@ import org.springframework.stereotype.Service;
 import com.airportAPI.rest.city.City;
 import com.airportAPI.rest.city.CityRepository;
 import org.springframework.web.bind.annotation.PathVariable;
+import com.airportAPI.rest.gates.Gates;
+import com.airportAPI.rest.gates.GatesRepository;
 
 @Service
 public class AirportService {
     private final AirportRepository airportRepository;
     private final CityRepository cityRepository;
+    private final GatesRepository gatesRepository;
 
-    public AirportService(AirportRepository airportRepository, CityRepository cityRepository){
+    public AirportService(AirportRepository airportRepository, CityRepository cityRepository, GatesRepository gatesRepository){
         this.airportRepository = airportRepository;
         this.cityRepository = cityRepository;
+        this.gatesRepository = gatesRepository;
     }
 
     public List<Airport> getAllAirports(){
@@ -50,5 +54,15 @@ public class AirportService {
 
     public void deleteAirport(Long id){
         airportRepository.deleteById(id);
+    }
+
+    public List<Gates> getGatesByAirport(Long airportId) {
+        return gatesRepository.findByAirportId(airportId);
+    }
+
+    public Gates addGateToAirport(Long airportId, Gates gate) {
+        Airport airport = airportRepository.findById(airportId).orElseThrow(() -> new RuntimeException("Airport not found with ID: " + airportId));
+        gate.setAirport(airport);
+        return gatesRepository.save(gate);
     }
 }

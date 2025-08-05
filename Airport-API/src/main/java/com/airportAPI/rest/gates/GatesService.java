@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.airportAPI.rest.airport.Airport;
 import com.airportAPI.rest.airport.AirportRepository;
+import com.airportAPI.rest.aircraft.Aircraft;
+import com.airportAPI.rest.aircraft.AircraftRepository;
 
 @Service
 public class GatesService {
@@ -17,6 +19,9 @@ public class GatesService {
 
     @Autowired
     private AirportRepository airportRepository;
+
+    @Autowired
+    private AircraftRepository aircraftRepository;
 
     public List<Gates> getAllGates() {
         List<Gates> gates = new ArrayList<>();
@@ -44,7 +49,43 @@ public class GatesService {
         }).orElse(null);
     }
 
+    public List<Gates> getGatesByAirport(Long airportId) {
+        return gatesRepository.findByAirportId(airportId);
+    }
+
+    public List<Gates> getDepartureGates(Long airportId) {
+        return gatesRepository.findByAirportIdAndIsDepartureGate(airportId, true);
+    }
+
+    public List<Gates> getArrivalGates(Long airportId) {
+        return gatesRepository.findByAirportIdAndIsDepartureGate(airportId, false);
+    }
+
     public void deleteGateById(Long id) {
         gatesRepository.deleteById(id);
+    }
+
+    public Gates assignAircraftToGate(Long gateId, Long aircraftId) {
+        Gates gate = gatesRepository.findById(gateId)
+            .orElseThrow(() -> new RuntimeException("Gate not found"));
+        
+        Aircraft aircraft = aircraftRepository.findById(aircraftId)
+            .orElseThrow(() -> new RuntimeException("Aircraft not found"));
+        
+        gate.setAircraft(aircraft);
+        return gatesRepository.save(gate);
+    }
+
+    public Gates removeAircraftFromGate(Long gateId) {
+        Gates gate = gatesRepository.findById(gateId)
+            .orElseThrow(() -> new RuntimeException("Gate not found"));
+        
+        gate.setAircraft(null);
+        return gatesRepository.save(gate);
+    }
+
+    public List<Gates> getGatesWithAircraftByAirport(Long airportId, boolean isDeparture) {
+        List<Gates> gates = gatesRepository.findByAirportIdAndIsDepartureGate(airportId, isDeparture);
+        return gates;
     }
 }
