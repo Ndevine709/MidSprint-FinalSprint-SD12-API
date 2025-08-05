@@ -25,7 +25,6 @@ public class Gates {
     @JoinColumn(name = "airport_id", nullable = false)
     private Airport airport;
 
-    // Add this new relationship
     @ManyToOne
     @JoinColumn(name = "aircraft_id")
     private Aircraft aircraft;
