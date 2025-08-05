@@ -7,6 +7,7 @@ import java.util.Set;
 import com.airportAPI.rest.city.City;
 import com.airportAPI.rest.aircraft.Aircraft;
 import com.airportAPI.rest.gates.Gates;
+import com.airportAPI.rest.flights.Flight;
 
 @Entity
 @Table(name = "airport")
@@ -30,6 +31,15 @@ public class Airport {
     @OneToMany(mappedBy = "airport", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
     private Set<Gates> gates = new HashSet<>();
+
+    // Add these new relationships
+    @OneToMany(mappedBy = "departureAirport", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
+    private Set<Flight> departures = new HashSet<>();
+
+    @OneToMany(mappedBy = "arrivalAirport", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
+    private Set<Flight> arrivals = new HashSet<>();
 
     protected Airport() {
     }
@@ -106,5 +116,31 @@ public class Airport {
     public void removeGate(Gates gate) {
         this.gates.remove(gate);
         gate.setAirport(null);
+    }
+
+    public Set<Flight> getDepartures() {
+        return departures;
+    }
+
+    public void setDepartures(Set<Flight> departures) {
+        this.departures = departures;
+    }
+
+    public Set<Flight> getArrivals() {
+        return arrivals;
+    }
+
+    public void setArrivals(Set<Flight> arrivals) {
+        this.arrivals = arrivals;
+    }
+
+    public void addDeparture(Flight flight) {
+        this.departures.add(flight);
+        flight.setDepartureAirport(this);
+    }
+
+    public void addArrival(Flight flight) {
+        this.arrivals.add(flight);
+        flight.setArrivalAirport(this);
     }
 }

@@ -64,7 +64,6 @@ public class FlightService {
             .orElseThrow(() -> new RuntimeException("Arrival airport not found with ID: " + arrivalAirportId));
         flight.setArrivalAirport(arrivalAirport);
 
-        // Set optional gates if provided
         if (flight.getDepartureGate() != null) {
             Long departureGateId = flight.getDepartureGate().getId();
             Gates departureGate = gatesRepository.findById(departureGateId)
@@ -92,7 +91,6 @@ public class FlightService {
             flight.setStatus(flightDetails.getStatus());
             flight.setDelayReason(flightDetails.getDelayReason());
             
-            // Update related entities if provided
             if (flightDetails.getAirline() != null) {
                 Long airlineId = flightDetails.getAirline().getId();
                 Airline airline = airlineRepository.findById(airlineId)
@@ -115,7 +113,6 @@ public class FlightService {
         flightRepository.deleteById(id);
     }
 
-    // Convenience methods for arrivals and departures
     public List<Flight> getDeparturesByAirport(Long airportId) {
         return flightRepository.findByDepartureAirportId(airportId);
     }

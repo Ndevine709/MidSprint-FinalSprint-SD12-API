@@ -57,7 +57,6 @@ public class FlightController {
         }
     }
 
-    // Convenience endpoints for arrivals and departures
     @GetMapping("/flights/airport/{airportId}/departures")
     public List<Flight> getDeparturesByAirport(@PathVariable Long airportId) {
         return flightService.getDeparturesByAirport(airportId);
@@ -88,7 +87,6 @@ public class FlightController {
         return flightService.getArrivalsByAirportAndStatus(airportId, status);
     }
 
-    // Update flight status
     @PutMapping("/flights/{id}/status")
     public ResponseEntity<Flight> updateFlightStatus(@PathVariable Long id, @RequestBody String status) {
         try {

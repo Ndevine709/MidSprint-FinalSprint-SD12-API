@@ -2,7 +2,11 @@ package com.airportAPI.rest.gates;
 
 import com.airportAPI.rest.airport.Airport;
 import com.airportAPI.rest.aircraft.Aircraft;
+import com.airportAPI.rest.flights.Flight;
 import jakarta.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "gates")
@@ -28,6 +32,14 @@ public class Gates {
     @ManyToOne
     @JoinColumn(name = "aircraft_id")
     private Aircraft aircraft;
+
+    @OneToMany(mappedBy = "departureGate", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
+    private Set<Flight> departureFlights = new HashSet<>();
+
+    @OneToMany(mappedBy = "arrivalGate", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
+    private Set<Flight> arrivalFlights = new HashSet<>();
 
     public Gates() {}
 
@@ -84,5 +96,21 @@ public class Gates {
 
     public void setAircraft(Aircraft aircraft) {
         this.aircraft = aircraft;
+    }
+
+    public Set<Flight> getDepartureFlights() {
+        return departureFlights;
+    }
+
+    public void setDepartureFlights(Set<Flight> departureFlights) {
+        this.departureFlights = departureFlights;
+    }
+
+    public Set<Flight> getArrivalFlights() {
+        return arrivalFlights;
+    }
+
+    public void setArrivalFlights(Set<Flight> arrivalFlights) {
+        this.arrivalFlights = arrivalFlights;
     }
 }

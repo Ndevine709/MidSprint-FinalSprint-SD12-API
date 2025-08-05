@@ -8,6 +8,7 @@ import com.airportAPI.rest.airport.Airport;
 import com.airportAPI.rest.passenger.Passenger;
 import com.airportAPI.rest.gates.Gates;
 import com.airportAPI.rest.airline.Airline;
+import com.airportAPI.rest.flights.Flight;
 
 @Entity
 @Table(name = "aircraft")
@@ -38,6 +39,10 @@ public class Aircraft {
     @OneToMany(mappedBy = "aircraft", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JsonIgnore
     private Set<Gates> assignedGates = new HashSet<>();
+
+    @OneToMany(mappedBy = "aircraft", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JsonIgnore
+    private Set<Flight> flights = new HashSet<>();
 
     @ManyToOne
     @JoinColumn(name = "airline_id")
@@ -122,6 +127,24 @@ public class Aircraft {
     public void removeAssignedGate(Gates gate) {
         this.assignedGates.remove(gate);
         gate.setAircraft(null);
+    }
+
+    public Set<Flight> getFlights() {
+        return flights;
+    }
+
+    public void setFlights(Set<Flight> flights) {
+        this.flights = flights;
+    }
+
+    public void addFlight(Flight flight) {
+        this.flights.add(flight);
+        flight.setAircraft(this);
+    }
+
+    public void removeFlight(Flight flight) {
+        this.flights.remove(flight);
+        flight.setAircraft(null);
     }
 
     public Airline getAirline() {
