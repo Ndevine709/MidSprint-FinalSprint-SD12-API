@@ -13,6 +13,7 @@ import com.airportAPI.rest.flights.Flight;
 @Entity
 @Table(name = "aircraft")
 public class Aircraft {
+    
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,7 +49,7 @@ public class Aircraft {
     @JoinColumn(name = "airline_id")
     private Airline airline;
 
-    protected Aircraft() {
+    public Aircraft() {
     }
 
     public Aircraft(String tailNumber, String model, int capacity) {
