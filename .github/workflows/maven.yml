@@ -28,4 +28,5 @@ jobs:
         distribution: 'temurin'
         cache: maven
     - name: Build with Maven
+      working-directory: Airport-API
       run: mvn -B package
