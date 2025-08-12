@@ -70,45 +70,114 @@ public class Flight {
         this.status = "SCHEDULED";
     }
     
-    public Long getId() { return id; }
-    public void setId(Long id) { this.id = id; }
+    public Long getId() {
+        return id; 
+    }
+    public void setId(Long id) {
+        this.id = id; 
+    }
     
-    public String getFlightNumber() { return flightNumber; }
-    public void setFlightNumber(String flightNumber) { this.flightNumber = flightNumber; }
+    public String getFlightNumber() {
+        return flightNumber; 
+    }
+
+    public void setFlightNumber(String flightNumber) {
+        this.flightNumber = flightNumber; 
+    }
     
-    public Airline getAirline() { return airline; }
-    public void setAirline(Airline airline) { this.airline = airline; }
+    public Airline getAirline() { 
+        return airline; 
+    }
+
+    public void setAirline(Airline airline) {
+        this.airline = airline; 
+    }
     
-    public Aircraft getAircraft() { return aircraft; }
-    public void setAircraft(Aircraft aircraft) { this.aircraft = aircraft; }
+    public Aircraft getAircraft() { 
+        return aircraft; 
+    }
+
+    public void setAircraft(Aircraft aircraft) { 
+        this.aircraft = aircraft; 
+    }
     
-    public Airport getDepartureAirport() { return departureAirport; }
-    public void setDepartureAirport(Airport departureAirport) { this.departureAirport = departureAirport; }
+    public Airport getDepartureAirport() {
+        return departureAirport; 
+    }
+
+    public void setDepartureAirport(Airport departureAirport) {
+        this.departureAirport = departureAirport; 
+    }
     
-    public Airport getArrivalAirport() { return arrivalAirport; }
-    public void setArrivalAirport(Airport arrivalAirport) { this.arrivalAirport = arrivalAirport; }
+    public Airport getArrivalAirport() { 
+        return arrivalAirport; 
+    }
+
+    public void setArrivalAirport(Airport arrivalAirport) { 
+        this.arrivalAirport = arrivalAirport; 
+    }
     
-    public Gates getDepartureGate() { return departureGate; }
-    public void setDepartureGate(Gates departureGate) { this.departureGate = departureGate; }
+    public Gates getDepartureGate() { 
+        return departureGate;
+    }
+
+    public void setDepartureGate(Gates departureGate) {
+        this.departureGate = departureGate; 
+    }
     
-    public Gates getArrivalGate() { return arrivalGate; }
-    public void setArrivalGate(Gates arrivalGate) { this.arrivalGate = arrivalGate; }
+    public Gates getArrivalGate() { 
+        return arrivalGate;
+    }
+
+    public void setArrivalGate(Gates arrivalGate) {
+        this.arrivalGate = arrivalGate;
+    }
     
-    public LocalDateTime getScheduledDeparture() { return scheduledDeparture; }
-    public void setScheduledDeparture(LocalDateTime scheduledDeparture) { this.scheduledDeparture = scheduledDeparture; }
+    public LocalDateTime getScheduledDeparture() {
+        return scheduledDeparture;
+    }
+
+    public void setScheduledDeparture(LocalDateTime scheduledDeparture) { 
+        this.scheduledDeparture = scheduledDeparture; 
+    }
     
-    public LocalDateTime getScheduledArrival() { return scheduledArrival; }
-    public void setScheduledArrival(LocalDateTime scheduledArrival) { this.scheduledArrival = scheduledArrival; }
+    public LocalDateTime getScheduledArrival() { 
+        return scheduledArrival; 
+    }
+
+    public void setScheduledArrival(LocalDateTime scheduledArrival) {
+        this.scheduledArrival = scheduledArrival;
+    }
     
-    public LocalDateTime getActualDeparture() { return actualDeparture; }
-    public void setActualDeparture(LocalDateTime actualDeparture) { this.actualDeparture = actualDeparture; }
+    public LocalDateTime getActualDeparture() { 
+        return actualDeparture; 
+    }
+
+    public void setActualDeparture(LocalDateTime actualDeparture) { 
+        this.actualDeparture = actualDeparture; 
+    }
     
-    public LocalDateTime getActualArrival() { return actualArrival; }
-    public void setActualArrival(LocalDateTime actualArrival) { this.actualArrival = actualArrival; }
+    public LocalDateTime getActualArrival() { 
+        return actualArrival; 
+    }
+
+    public void setActualArrival(LocalDateTime actualArrival) { 
+        this.actualArrival = actualArrival; 
+    }
     
-    public String getStatus() { return status; }
-    public void setStatus(String status) { this.status = status; }
+    public String getStatus() { 
+        return status; 
+    }
+
+    public void setStatus(String status) { 
+        this.status = status; 
+    }
     
-    public String getDelayReason() { return delayReason; }
-    public void setDelayReason(String delayReason) { this.delayReason = delayReason; }
+    public String getDelayReason() { 
+        return delayReason; 
+    }
+
+    public void setDelayReason(String delayReason) { 
+        this.delayReason = delayReason; 
+    }
 }
